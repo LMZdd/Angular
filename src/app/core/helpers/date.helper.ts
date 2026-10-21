@@ -1,4 +1,3 @@
-// Date -> 'yyyy-MM-dd' (usando la fecha local, NO toISOString, que puede restar un día por la zona horaria)
 export function formatDate(date: Date | null): string | null {
   if (!date) return null;
   const year = date.getFullYear();

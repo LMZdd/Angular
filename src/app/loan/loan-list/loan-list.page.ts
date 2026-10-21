@@ -101,7 +101,6 @@ export class LoanListPage implements OnInit {
   }
 
   onSearch(): void {
-    // Al cambiar los filtros siempre volvemos a la primera página
     this.pageNumber = 0;
     this.loadPage();
   }
