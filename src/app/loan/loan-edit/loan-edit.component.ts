@@ -14,7 +14,7 @@ import { GameService } from '../../game/game.service';
 import { Client } from '../../client/model/Client';
 import { ClientService } from '../../client/client.service';
 import { validateFields } from '../../core/helpers/validation.helper';
-import { daysBetween, formatDate, parseDate } from '../../core/helpers/date.helper';
+import { daysBetween } from '../../core/helpers/date.helper';
 
 const MAX_LOAN_DAYS = 14;
 
@@ -56,8 +56,8 @@ export class LoanEditComponent implements OnInit {
 
   loadFormData(initialData: Loan | null): void {
     this.id.set(initialData?.id ?? null);
-    this.startDate.set(parseDate(initialData?.startDate));
-    this.endDate.set(parseDate(initialData?.endDate));
+    this.startDate.set(initialData?.startDate ? new Date(initialData.startDate) : null);
+    this.endDate.set(initialData?.endDate ? new Date(initialData.endDate) : null);
 
     this.clientService.getClients().subscribe((clients) => {
       this.clients.set(clients);
@@ -101,8 +101,8 @@ export class LoanEditComponent implements OnInit {
       id,
       client: this.clients().find((c) => c.id === clientId) ?? null,
       game: this.games().find((g) => g.id === gameId) ?? null,
-      startDate: formatDate(startDate),
-      endDate: formatDate(endDate),
+      startDate,
+      endDate,
     } as Loan;
 
     this.loanService.saveLoan(loan).subscribe({

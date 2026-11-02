@@ -17,7 +17,7 @@ export class LoanService {
     pageable: Pageable,
     gameId?: number,
     clientId?: number,
-    date?: string,
+    date?: Date | null,
   ): Observable<PaginatedData<Loan>> {
     return this.http.post<PaginatedData<Loan>>(this.composeFindUrl(gameId, clientId, date), {
       pageable: pageable,
@@ -35,7 +35,7 @@ export class LoanService {
     return this.http.delete<void>(`${this.baseUrl}/${idLoan}`);
   }
 
-  private composeFindUrl(gameId?: number, clientId?: number, date?: string): string {
+  private composeFindUrl(gameId?: number, clientId?: number, date?: Date | null): string {
     const params = new URLSearchParams();
     if (gameId) {
       params.set('idGame', gameId.toString());
@@ -44,7 +44,7 @@ export class LoanService {
       params.set('idClient', clientId.toString());
     }
     if (date) {
-      params.set('date', date);
+      params.set('date', date.toISOString());
     }
     const queryString = params.toString();
     return queryString ? `${this.baseUrl}?${queryString}` : this.baseUrl;

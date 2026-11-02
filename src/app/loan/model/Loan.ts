@@ -3,8 +3,8 @@ import { Client } from '../../client/model/Client';
 
 export interface Loan {
   id: number;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   game: Game;
   client: Client;
 }

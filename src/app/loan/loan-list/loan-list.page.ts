@@ -19,7 +19,6 @@ import { Client } from '../../client/model/Client';
 import { ClientService } from '../../client/client.service';
 import { Pageable } from '../../core/model/page/Pageable';
 import { DialogConfirmationComponent } from '../../core/dialog-confirmation/dialog-confirmation.component';
-import { formatDate } from '../../core/helpers/date.helper';
 
 @Component({
   selector: 'app-loan-list',
@@ -83,7 +82,7 @@ export class LoanListPage implements OnInit {
 
     const gameId = this.filterGame()?.id;
     const clientId = this.filterClient()?.id;
-    const date = formatDate(this.filterDate()) ?? undefined;
+    const date = this.filterDate();
 
     this.loanService.getLoans(pageable, gameId, clientId, date).subscribe((data) => {
       this.dataSource.data = data.content;
